@@ -5,19 +5,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; 
 import Ionicons from 'react-native-vector-icons/Ionicons'; 
 
-//Screens 
-function HomeScreen() {
+import DropdownMenu from './Components/DropdownMenu';
+
+// Screens        
+function HomeScreen() { 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={colours.white}>Home page.</Text>
-    </View>
+    <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center' }}>
+      <DropdownMenu />   
+     </View>
   );
 }
 
 function SettingsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={colours.white}>Settings page.</Text>
+      <Text  style={colours.white}>Settings page. </Text> 
     </View>
   );
 }
