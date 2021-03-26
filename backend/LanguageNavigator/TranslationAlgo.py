@@ -9,4 +9,4 @@ for i in english_words_lower_alpha_set:
         wordDict[i] = trans[0]
     else:
         wordDict[i] = trans
-        print(i + " --> " + wordDict[i])
+    print(i + " --> " + wordDict[i])
