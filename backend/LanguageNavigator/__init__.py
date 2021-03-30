@@ -72,6 +72,21 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         print(lang_dict)
         return func.HttpResponse(json.dumps(lang_dict), status_code=200)
 
+    if mode == 'sample':
+        print("returning sample words")
+
+        sample = {"lan1": "eng", "lan2": "fr", "list": ["allowance", 
+                    "aviation",
+                    "bachelor", 
+                    "ballet", 
+                    "bureau", 
+                    "cadet", 
+                    "champagne"
+                    "radiant"]}
+        
+        return func.HttpResponse(json.dumps(sample), status_code=200)
+
+
 
     
 
