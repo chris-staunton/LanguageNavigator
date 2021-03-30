@@ -1,7 +1,8 @@
 import logging
 import json
 import nltk
-from google_trans_new import google_translator
+# import google_trans_new
+# from google_trans_new import google_translator
 from nltk.corpus import words
 nltk.download('words')
             
@@ -38,39 +39,39 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     #         pass
     #     else:
     #         test = req_body.get('test')
-    if mode == 'translate':
-        print("translating")
-        word = req.params.get('word')
-        if not word:
-            try:
-                req_body = req.get_json()
-            except ValueError:
-                pass
-            else:
-                word = req_body.get('word')
+    # if mode == 'translate':
+    #     print("translating")
+    #     word = req.params.get('word')
+    #     if not word:
+    #         try:
+    #             req_body = req.get_json()
+    #         except ValueError:
+    #             pass
+    #         else:
+    #             word = req_body.get('word')
 
-        translator = google_translator()
-        trans = translator.translate(word, lang_tgt="es")
-        if word:
-            return func.HttpResponse(json.dumps({word:trans}), status_code=200)
-        else:
-            print("Missing word to translate. Please include word value in request body...")
-            return func.HttpResponse("Error Translating....", status_code=403)
+    #     translator = google_trans_new.google_translator()
+    #     trans = translator.translate(word, lang_tgt="es")
+    #     if word:
+    #         return func.HttpResponse(json.dumps({word:trans}), status_code=200)
+    #     else:
+    #         print("Missing word to translate. Please include word value in request body...")
+    #         return func.HttpResponse("Error Translating....", status_code=403)
 
-    if mode == 'testing':
-        print("testing")
-        translator = google_translator()
-        lang_dict = {}
-        wordList = words.words()
-        for i in range(500,700):
-            #print(wordList[i])
-            trans = translator.translate(wordList[i], lang_tgt="es")
-            #print(trans)
-            lang_dict[wordList[i]]= trans
+    # if mode == 'testing':
+    #     print("testing")
+    #     translator = google_trans_new.google_translator()
+    #     lang_dict = {}
+    #     wordList = words.words()
+    #     for i in range(500,700):
+    #         #print(wordList[i])
+    #         trans = translator.translate(wordList[i], lang_tgt="es")
+    #         #print(trans)
+    #         lang_dict[wordList[i]]= trans
 
 
-        print(lang_dict)
-        return func.HttpResponse(json.dumps(lang_dict), status_code=200)
+    #     print(lang_dict)
+    #     return func.HttpResponse(json.dumps(lang_dict), status_code=200)
 
     if mode == 'sample':
         print("returning sample words")
@@ -95,9 +96,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     else:
         print("no mode selected...")
         
-        word_list = words.words()
+        # word_list = words.words()
         # prints 236736
-        print(len(word_list))
+        # print(len(word_list))
         #print(word_list)
         return func.HttpResponse(
              json.dumps({

@@ -4,4 +4,4 @@
 
 azure-functions
 nltk
-google-trans-new
+google_trans_new
