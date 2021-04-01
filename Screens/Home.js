@@ -1,6 +1,7 @@
 //Author: Theo
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import DropdownMenu from '../Components/DropdownMenu';
 
 export default function HomeScreen() {
   const [words, setWords] = useState([
@@ -15,6 +16,7 @@ export default function HomeScreen() {
     return (
       <View style={styles.container}>
         <View style={styles.buttonContainer}/>
+        <DropdownMenu></DropdownMenu>
           <View style={styles.scrollContainer}>
             <ScrollView>
               {words.map((item) => {

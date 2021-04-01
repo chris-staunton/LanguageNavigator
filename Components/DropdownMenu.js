@@ -7,6 +7,8 @@ import DropDownPicker from "react-native-dropdown-picker";
 
 
 export default function DropdownMenu() {
+   const [source, setSource] = React.useState("");
+   const [target, setTarget] = React.useState("");
   return (
     <View style={styles.container}>
   
@@ -29,6 +31,7 @@ export default function DropdownMenu() {
           style={{ backgroundColor: '#ffffff', color: "gray" }}
           dropDownStyle={{ backgroundColor: '#fafafa' }}
           zIndex={20}
+          onChangeItem={item => setSource(item.value)}
         />
  
         <DropDownPicker
@@ -42,10 +45,11 @@ export default function DropdownMenu() {
           style={{ marginTop: 40, backgroundColor: '#ffffff', color: "gray" }}
           dropDownStyle={{ backgroundColor: '#fafafa',  }}
           zIndex={10}
+          onChangeItem={item => setTarget(item.value)}
         />
 
         <View style={{marginTop: 50}}>
-              <Button buttonStyle={{backgroundColor: "#1CB394", justifyContent: "center"}} title="Submit" ></Button>
+              <Button buttonStyle={{backgroundColor: "#1CB394", justifyContent: "center"}} title="Submit" onPress={() =>{console.log("source: " + source + " target: "+ target)}}></Button>
         </View>
 
       </View>     
