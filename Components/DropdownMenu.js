@@ -1,3 +1,5 @@
+
+//Author: Tumi
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -5,23 +7,23 @@ class DropdownMenu extends Component {
    constructor(props) { 
      super(props);
      this.state = {value: '' };
- 
+
      this.handleChange = this.handleChange.bind(this);
      this.handleSubmit = this.handleSubmit.bind(this);
    }
- 
+
    handleChange(event) {
      this.setState({value: event.target.value});
    }
- 
+
    handleSubmit(event) { 
       alert('Select Initial Language: ' + this.state.value)
      event.preventDefault();
-       
+
       alert('Select Language To Learn: ' + this.state.value)
          event.preventDefault();
    }
- 
+
    render() {
      return (
       <Text style={styles.languages}>
@@ -39,7 +41,7 @@ class DropdownMenu extends Component {
          </View>
          <input type="submit" value="Submit" />
       </form>
-         
+
       <form onSubmit={this.handleSubmit}> 
          <View style={styles.container2}>
             <label>
@@ -61,24 +63,23 @@ class DropdownMenu extends Component {
 
  const styles = StyleSheet.create({
    languages: {
-      color: 'green',
+      color: 'white',
       fontSize: 30,
       fontWeight: 'bold',
-      fontFamily: 'cursive'
     },
     container: {
       width: '100%',
-      borderColor: 'blue',
+      borderColor: 'rgb(33, 33, 33)',
       borderWidth: 1, 
       padding: 30,
-      backgroundColor: 'red'
+      backgroundColor: 'rgb(51, 51, 51)'
     },
     container2: {
       width: '100%',
-      borderColor: 'blue',
+      borderColor: 'rgb(33, 33, 33)',
       borderWidth: 1, 
       padding: 30,
-      backgroundColor: 'red'
+      backgroundColor: 'rgb(51, 51, 51)'
     }
  });
-export default DropdownMenu;
+export default DropdownMenu; 
