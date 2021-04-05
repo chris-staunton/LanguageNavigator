@@ -31,7 +31,7 @@ export default function DropdownMenu(props) {
           style={{ backgroundColor: '#ffffff', color: "gray" }}
           dropDownStyle={{ backgroundColor: '#fafafa' }}
           zIndex={20}
-          onChangeItem={item => setSource(item.value)}
+          onChangeItem={item => props.changeSource(item.value)}
         />
  
         <DropDownPicker
@@ -45,7 +45,7 @@ export default function DropdownMenu(props) {
           style={{ marginTop: 40, backgroundColor: '#ffffff', color: "gray" }}
           dropDownStyle={{ backgroundColor: '#fafafa',  }}
           zIndex={10}
-          onChangeItem={item => setTarget(item.value)}
+          onChangeItem={item => props.changeTarget(item.value)}
         />
 
         <View style={{marginTop: 50}}>

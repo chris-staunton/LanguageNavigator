@@ -4,13 +4,14 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import DropdownMenu from '../Components/DropdownMenu';
 
 export default function HomeScreen() {
-  const [words, setWords] = useState([
-  ]);
+  const [words, setWords] = useState([]);
+  const [source, setSource] = useState([]);
+  const [target, setTarget] = useState([]);
     return (
       <View style={styles.container}>
         <View style={styles.buttonContainer}/>
-        <DropdownMenu func={() => {
-                return fetch('https://lexicalanalyzer.azurewebsites.net/api/languagenavigator?mode=sample')
+        <DropdownMenu changeSource = {(lang1)=>{setSource(lang1); console.log(lang1)}} changeTarget = {(lang2)=>{setTarget(lang2); console.log(lang2)}} func={() => {
+                return fetch('https://lexicalanalyzer.azurewebsites.net/api/languagenavigator?mode=sample&source='+source+'&target='+target)
                   .then((response) => response.json())
                   .then((json) => {
                   
@@ -23,6 +24,7 @@ export default function HomeScreen() {
               }}></DropdownMenu>
           <View style={styles.scrollContainer}>
             <ScrollView>
+              <Text style={styles.wordBox}>{ words.length>0 && <p>Source: {source} {"\n"} Target: {target}</p>}</Text>
               {words.map((item) => {
                 return(
                  <View key={item.index}>
