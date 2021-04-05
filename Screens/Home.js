@@ -5,25 +5,29 @@ import DropdownMenu from '../Components/DropdownMenu';
 
 export default function HomeScreen() {
   const [words, setWords] = useState([
-    {name: 'allowance', key: '1'},
-    {name: 'aviation', key: '2'},
-    {name: 'bachalor', key: '3'},
-    {name: 'ballet', key: '4'},
-    {name: 'bureau', key: '5'},
-    {name: 'cadet', key: '6'},
-    {name: 'champagne', key: '7'},
   ]);
     return (
       <View style={styles.container}>
         <View style={styles.buttonContainer}/>
-        <DropdownMenu></DropdownMenu>
+        <DropdownMenu func={() => {
+                return fetch('https://lexicalanalyzer.azurewebsites.net/api/languagenavigator?mode=sample')
+                  .then((response) => response.json())
+                  .then((json) => {
+                  
+                    console.log(json)
+                    setWords(json.list)
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+              }}></DropdownMenu>
           <View style={styles.scrollContainer}>
             <ScrollView>
               {words.map((item) => {
                 return(
-                 <View key={item.key}>
+                 <View key={item.index}>
                   <Text style={styles.wordBox}>
-                    {item.name}
+                    {item}
                   </Text>
                  </View>
                  )

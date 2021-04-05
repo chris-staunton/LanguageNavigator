@@ -6,7 +6,7 @@ import Constants from 'expo-constants';
 import DropDownPicker from "react-native-dropdown-picker";
 
 
-export default function DropdownMenu() {
+export default function DropdownMenu(props) {
    const [source, setSource] = React.useState("");
    const [target, setTarget] = React.useState("");
   return (
@@ -49,7 +49,8 @@ export default function DropdownMenu() {
         />
 
         <View style={{marginTop: 50}}>
-              <Button buttonStyle={{backgroundColor: "#1CB394", justifyContent: "center"}} title="Submit" onPress={() =>{console.log("source: " + source + " target: "+ target)}}></Button>
+              <Button buttonStyle={{backgroundColor: "#1CB394", justifyContent: "center"}} title="Submit" 
+              onPress={props.func}></Button>
         </View>
 
       </View>     
