@@ -1,7 +1,6 @@
-
 //Author: Tumi
 import * as React from 'react';
-import { View, StyleSheet, Platform, Button } from 'react-native';
+import { View, StyleSheet, Platform, Button, Pressable, Text} from 'react-native';
 import Constants from 'expo-constants';
 import DropDownPicker from "react-native-dropdown-picker";
 
@@ -16,8 +15,7 @@ export default function DropdownMenu(props) {
         style={{
           ...(Platform.OS !== 'android' && {
             zIndex: 10
-          })
-          
+          }),  
         }}
       >
         <DropDownPicker
@@ -27,8 +25,8 @@ export default function DropdownMenu(props) {
             { label: 'Spanish', value: 'spanish' },
           ]}
           placeholder="Select Initial Language"
-          containerStyle={{width: 300, height: 60}}
-          style={{ backgroundColor: '#ffffff', color: "gray" }}
+          containerStyle={{width: 300, height: 60, alignSelf: 'center'}}
+          style={{ backgroundColor: '#ffffff', color: "gray", }}
           dropDownStyle={{ backgroundColor: '#fafafa' }}
           zIndex={20}
           onChangeItem={item => props.changeSource(item.value)}
@@ -41,18 +39,17 @@ export default function DropdownMenu(props) {
             { label: 'Spanish', value: 'spanish' },
           ]}
           placeholder="Select Language To Learn"
-          containerStyle={{ width: 300, height: 100 }}
+          containerStyle={{ width: 300, height: 100,alignSelf: 'center' }}
           style={{ marginTop: 40, backgroundColor: '#ffffff', color: "gray" }}
           dropDownStyle={{ backgroundColor: '#fafafa',  }}
           zIndex={10}
           onChangeItem={item => props.changeTarget(item.value)}
         />
-
-        <View style={{marginTop: 50}}>
-              <Button buttonStyle={{backgroundColor: "#1CB394", justifyContent: "center"}} title="Submit" 
-              onPress={props.func}></Button>
+        <View style={styles.buttonContainer}>
+           <Pressable style={styles.button} onPress={props.func} title="GET STARTED">
+               <Text style={{color: '#fff', alignSelf: 'center'}}>SUBMIT</Text>
+            </Pressable>
         </View>
-
       </View>     
     </View>
   );
@@ -60,10 +57,24 @@ export default function DropdownMenu(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.5,
     justifyContent: 'center',
+    alignContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
     padding: 8,
   },
+  button : {
+   backgroundColor: 'rgb(51, 51, 51)', 
+   padding: 20,
+   paddingHorizontal: 0, 
+   color: 'rgb(51, 51, 51)',
+   fontSize: 18, 
+   marginTop: 8,
+   borderRadius: 12,
+},
+  buttonContainer:{
+   justifyContent: 'center', 
+   margin: 10, 
+   padding: 10
+},
 });

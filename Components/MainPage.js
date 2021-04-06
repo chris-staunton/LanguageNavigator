@@ -1,4 +1,4 @@
-//Author: Theo
+//Author: Various 
 import React from 'react';
 import { StyleSheet, TabBarIOS, Text, View, Button, BackHandler } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'; 
@@ -36,7 +36,7 @@ export default class MainPage extends React.Component {
               if(route.name == 'Home'){
                 iconName = focused ? 'home' : 'home-outline'; 
               } else if(route.name == 'About'){
-                iconName = focused ? 'about' : 'information-circle-outline'; 
+                iconName = focused ? 'information-circle' : 'information-circle-outline'; 
               }
               else if(route.name == 'Settings'){
                 iconName = focused ? 'settings' : 'settings-outline'; 
