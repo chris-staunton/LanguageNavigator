@@ -1,9 +1,8 @@
-from google_trans_new import google_translator
+import goslate
 from english_words import english_words_lower_alpha_set
-from pip._vendor.msgpack.fallback import xrange
 import heapq
 
-translator = google_translator()
+translator = goslate.Goslate()   
 wordDict = {}
 
 def get_key(dictionary, n=0):
@@ -38,13 +37,13 @@ def levenshteinDistance(seq1, seq2):
 
 if __name__ == '__main__':
     for i in english_words_lower_alpha_set:
-        trans = translator.translate(i, lang_tgt="es")
+        trans = translator.translate(i, 'es')
         if isinstance(trans, list):
             wordDict[i] = trans[0]
         else:
             wordDict[i] = trans
         print(i + " --> " + wordDict[i])
-        if len(wordDict) >= 950:
+        if len(wordDict) >= 700:
             break
     heap = []
     for i in range(len(wordDict)):
