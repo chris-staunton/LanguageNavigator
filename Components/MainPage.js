@@ -1,4 +1,4 @@
-//Author: Theo
+//Author: Various 
 import React from 'react';
 import { StyleSheet, TabBarIOS, Text, View, Button, BackHandler } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'; 
@@ -7,14 +7,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { StatusBar } from 'expo-status-bar';
 //Local imports 
 import HomeScreen from '../Screens/Home.js';
+import AboutScreen from '../Screens/About.js';
 import SettingsScreen from '../Screens/Settings.js';
 import Header from './Header';
+
 
 const Tab = createBottomTabNavigator(); //Bottom tabs (Home/Settings)
 
 /*Main Page contains the two 'screens' (Home and Settings render functions) as well as the tabs to switch 
   between the two. 
-
   The NavigationContainer and the Header are essentially 'wrapped around' the Home and Settings screens. 
 */
 export default class MainPage extends React.Component {
@@ -34,13 +35,17 @@ export default class MainPage extends React.Component {
               let iconName 
               if(route.name == 'Home'){
                 iconName = focused ? 'home' : 'home-outline'; 
-              } else if(route.name == 'Settings'){
+              } else if(route.name == 'About'){
+                iconName = focused ? 'information-circle' : 'information-circle-outline'; 
+              }
+              else if(route.name == 'Settings'){
                 iconName = focused ? 'settings' : 'settings-outline'; 
               }
               return <Ionicons name={iconName} size={size} color={color} />; 
             }
           })}>
             <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="About" component={AboutScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
           </Tab.Navigator>
         </NavigationContainer> 

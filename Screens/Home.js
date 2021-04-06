@@ -1,27 +1,35 @@
 //Author: Theo
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import DropdownMenu from '../Components/DropdownMenu';
 
 export default function HomeScreen() {
-  const [words, setWords] = useState([
-    {name: 'allowance', key: '1'},
-    {name: 'aviation', key: '2'},
-    {name: 'bachalor', key: '3'},
-    {name: 'ballet', key: '4'},
-    {name: 'bureau', key: '5'},
-    {name: 'cadet', key: '6'},
-    {name: 'champagne', key: '7'},
-  ]);
+  const [words, setWords] = useState([]);
+  const [source, setSource] = useState([]);
+  const [target, setTarget] = useState([]);
     return (
       <View style={styles.container}>
         <View style={styles.buttonContainer}/>
+        <DropdownMenu changeSource = {(lang1)=>{setSource(lang1); console.log(lang1)}} changeTarget = {(lang2)=>{setTarget(lang2); console.log(lang2)}} func={() => {
+                return fetch('https://lexicalanalyzer.azurewebsites.net/api/languagenavigator?mode=sample&source='+source+'&target='+target)
+                  .then((response) => response.json())
+                  .then((json) => {
+
+                    console.log(json)
+                    setWords(json.list)
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+              }}></DropdownMenu>
           <View style={styles.scrollContainer}>
             <ScrollView>
-              {words.map((item) => {
+            <Text style={styles.wordBox}>{ words.length>0 && <Text>Source: {source} {"\n"} Target: {target}</Text>}</Text>
+            {words.map((item) => {
                 return(
-                 <View key={item.key}>
+                 <View key={item}>
                   <Text style={styles.wordBox}>
-                    {item.name}
+                    {item}
                   </Text>
                  </View>
                  )
@@ -43,7 +51,7 @@ export default function HomeScreen() {
     },
     buttonContainer : {
       backgroundColor: 'rgb(24, 24, 24)',
-      flex: 0.40
+      flex: 0
     },
     scrollContainer : { 
       flex: 0.60, 

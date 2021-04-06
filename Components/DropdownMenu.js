@@ -1,85 +1,80 @@
-
 //Author: Tumi
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { View, StyleSheet, Platform, Button, Pressable, Text} from 'react-native';
+import Constants from 'expo-constants';
+import DropDownPicker from "react-native-dropdown-picker";
 
-class DropdownMenu extends Component {
-   constructor(props) { 
-     super(props);
-     this.state = {value: '' };
 
-     this.handleChange = this.handleChange.bind(this);
-     this.handleSubmit = this.handleSubmit.bind(this);
-   }
+export default function DropdownMenu(props) {
+   const [source, setSource] = React.useState("");
+   const [target, setTarget] = React.useState("");
+  return (
+    <View style={styles.container}>
+  
+      <View
+        style={{
+          ...(Platform.OS !== 'android' && {
+            zIndex: 10
+          }),  
+        }}
+      >
+        <DropDownPicker
+          items={[
+            { label: 'English', value: 'english' },
+            { label: 'French', value: 'french' },
+            { label: 'Spanish', value: 'spanish' },
+          ]}
+          placeholder="Select Initial Language"
+          containerStyle={{width: 300, height: 60, alignSelf: 'center'}}
+          style={{ backgroundColor: '#ffffff', color: "gray", }}
+          dropDownStyle={{ backgroundColor: '#fafafa' }}
+          zIndex={20}
+          onChangeItem={item => props.changeSource(item.value)}
+        />
+ 
+        <DropDownPicker
+          items={[
+            { label: 'English', value: 'english' },
+            { label: 'French', value: 'french' },
+            { label: 'Spanish', value: 'spanish' },
+          ]}
+          placeholder="Select Language To Learn"
+          containerStyle={{ width: 300, height: 100,alignSelf: 'center' }}
+          style={{ marginTop: 40, backgroundColor: '#ffffff', color: "gray" }}
+          dropDownStyle={{ backgroundColor: '#fafafa',  }}
+          zIndex={10}
+          onChangeItem={item => props.changeTarget(item.value)}
+        />
+        <View style={styles.buttonContainer}>
+           <Pressable style={styles.button} onPress={props.func} title="GET STARTED">
+               <Text style={{color: '#fff', alignSelf: 'center'}}>SUBMIT</Text>
+            </Pressable>
+        </View>
+      </View>     
+    </View>
+  );
+}
 
-   handleChange(event) {
-     this.setState({value: event.target.value});
-   }
-
-   handleSubmit(event) { 
-      alert('Select Initial Language: ' + this.state.value)
-     event.preventDefault();
-
-      alert('Select Language To Learn: ' + this.state.value)
-         event.preventDefault();
-   }
-
-   render() {
-     return (
-      <Text style={styles.languages}>
-       <form onSubmit={this.handleSubmit}> 
-          <View style={styles.container}>
-            <label>
-               Select Initial Language: 
-               <select value={this.state.value} onChange={this.handleChange}>
-                  <option value="English">English</option>
-                  <option value="Spanish">Spanish</option>
-                  <option value="French">French</option>
-                  <option value="German">German</option>
-               </select>
-            </label>
-         </View>
-         <input type="submit" value="Submit" />
-      </form>
-
-      <form onSubmit={this.handleSubmit}> 
-         <View style={styles.container2}>
-            <label>
-               Select Language To Learn: 
-               <select value={this.state.value} onChange={this.handleChange}>
-                  <option value="English2">English</option>
-                  <option value="Spanish2">Spanish</option>
-                  <option value="French2">French</option>
-                  <option value="German2">German</option>
-               </select>
-            </label>
-         </View>
-         <input type="submit" value="Submit" />
-      </form>
-   </Text>
-     );
-   }
- }
-
- const styles = StyleSheet.create({
-   languages: {
-      color: 'white',
-      fontSize: 30,
-      fontWeight: 'bold',
-    },
-    container: {
-      width: '100%',
-      borderColor: 'rgb(33, 33, 33)',
-      borderWidth: 1, 
-      padding: 30,
-      backgroundColor: 'rgb(51, 51, 51)'
-    },
-    container2: {
-      width: '100%',
-      borderColor: 'rgb(33, 33, 33)',
-      borderWidth: 1, 
-      padding: 30,
-      backgroundColor: 'rgb(51, 51, 51)'
-    }
- });
-export default DropdownMenu; 
+const styles = StyleSheet.create({
+  container: {
+    flex: 0.5,
+    justifyContent: 'center',
+    alignContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    padding: 8,
+  },
+  button : {
+   backgroundColor: 'rgb(51, 51, 51)', 
+   padding: 20,
+   paddingHorizontal: 0, 
+   color: 'rgb(51, 51, 51)',
+   fontSize: 18, 
+   marginTop: 8,
+   borderRadius: 12,
+},
+  buttonContainer:{
+   justifyContent: 'center', 
+   margin: 10, 
+   padding: 10
+},
+});

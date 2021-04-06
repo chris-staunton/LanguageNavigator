@@ -22,6 +22,24 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         else:
             mode = req_body.get('mode')
 
+    source = req.params.get('source')
+    if not source:
+        try:
+            req_body = req.get_json()
+        except ValueError:
+            pass
+        else:
+            source = req_body.get('source')
+
+    target = req.params.get('target')
+    if not target:
+        try:
+            req_body = req.get_json()
+        except ValueError:
+            pass
+        else:
+            target = req_body.get('target')
+
     # age = req.params.get('age')
     # if not age:
     #     try:
@@ -75,15 +93,32 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     if mode == 'sample':
         print("returning sample words")
+        print(source)
 
-        sample = {"lan1": "eng", "lan2": "fr", "list": ["allowance", 
-                    "aviation",
-                    "bachelor", 
-                    "ballet", 
-                    "bureau", 
-                    "cadet", 
-                    "champagne"
-                    "radiant"]}
+        if (source == "english" and target == "french") or (source == "french" and target == "english"):
+
+            sample = {"source": source, "target": target, "list": ["allowance", 
+                        "aviation",
+                        "bachelor", 
+                        "ballet", 
+                        "bureau", 
+                        "cadet", 
+                        "champagne",
+                        "radiant"]}
+
+        elif (source == "english" and target == "spanish") or (source == "spanish" and target == "english"):
+
+            sample = {"source": source, "target": target, "list": ["abdominal", 
+                        "Animal",
+                        "Balance", 
+                        "Base", 
+                        "Capital", 
+                        "Cable", 
+                        "Conclusion",
+                        "Informal"]}
+
+        else:
+            return func.HttpResponse("Error", status_code=400)
         
         return func.HttpResponse(json.dumps(sample), status_code=200)
 
