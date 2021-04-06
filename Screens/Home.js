@@ -14,7 +14,7 @@ export default function HomeScreen() {
                 return fetch('https://lexicalanalyzer.azurewebsites.net/api/languagenavigator?mode=sample&source='+source+'&target='+target)
                   .then((response) => response.json())
                   .then((json) => {
-                  
+
                     console.log(json)
                     setWords(json.list)
                   })
@@ -24,10 +24,10 @@ export default function HomeScreen() {
               }}></DropdownMenu>
           <View style={styles.scrollContainer}>
             <ScrollView>
-              <Text style={styles.wordBox}>{ words.length>0 && <p>Source: {source} {"\n"} Target: {target}</p>}</Text>
-              {words.map((item) => {
+            <Text style={styles.wordBox}>{ words.length>0 && <Text>Source: {source} {"\n"} Target: {target}</Text>}</Text>
+            {words.map((item) => {
                 return(
-                 <View key={item.index}>
+                 <View key={item}>
                   <Text style={styles.wordBox}>
                     {item}
                   </Text>
@@ -51,7 +51,7 @@ export default function HomeScreen() {
     },
     buttonContainer : {
       backgroundColor: 'rgb(24, 24, 24)',
-      flex: 0.40
+      flex: 0
     },
     scrollContainer : { 
       flex: 0.60, 

@@ -6,8 +6,6 @@ export default class AboutScreen extends React.Component{
     render(){
         return(
             <View style={styles.container}>
-                <View style={styles.topContainer} />
-                <View style={styles.midContainer}>
                 <Text style={styles.text}>
                     Hi and welcome to LanguagePal
                     {"\n\n"}
@@ -23,7 +21,6 @@ export default class AboutScreen extends React.Component{
                     Learn thousands of common words between two languages 
                     of your choice, helping you learn a new language quicker.
                 </Text>
-                </View>
             </View>
         );}
 }
@@ -34,36 +31,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center', 
         alignItems: 'center',
     },
-    topContainer: {
-        flex: 2,
-        justifyContent: 'center', 
-        alignItems: 'center'
-    },
-    midContainer: {
-        flex: 3, 
-        maxWidth: '90%',
-        justifyContent: 'flex-start', 
-        alignItems: 'center',
-    },
-    buttonContainer:{
-        justifyContent: 'flex-end', 
-        margin: 20, 
-        padding: 10
-    },
     text: {
         textAlign: 'center', 
         color: '#fff',
         fontSize: 15,
         maxWidth: '90%', 
-    },
-    button : {
-        backgroundColor: 'rgb(51, 51, 51)', 
-        padding: 20,
-        paddingHorizontal: 50, 
-        margin: 30,
-        color: 'rgb(51, 51, 51)',
-        fontSize: 18, 
-        marginTop: 8,
-        borderRadius: 12,
     },
 });
