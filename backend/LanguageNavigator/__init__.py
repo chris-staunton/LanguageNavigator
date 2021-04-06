@@ -95,14 +95,30 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         print("returning sample words")
         print(source)
 
-        sample = {"source": source, "target": target, "list": ["allowance", 
-                    "aviation",
-                    "bachelor", 
-                    "ballet", 
-                    "bureau", 
-                    "cadet", 
-                    "champagne"
-                    "radiant"]}
+        if (source == "english" and target == "french") or (source == "french" and target == "english"):
+
+            sample = {"source": source, "target": target, "list": ["allowance", 
+                        "aviation",
+                        "bachelor", 
+                        "ballet", 
+                        "bureau", 
+                        "cadet", 
+                        "champagne",
+                        "radiant"]}
+
+        elif (source == "english" and target == "spanish") or (source == "spanish" and target == "english"):
+
+            sample = {"source": source, "target": target, "list": ["abdominal", 
+                        "Animal",
+                        "Balance", 
+                        "Base", 
+                        "Capital", 
+                        "Cable", 
+                        "Conclusion",
+                        "Informal"]}
+
+        else:
+            return func.HttpResponse("Error", status_code=400)
         
         return func.HttpResponse(json.dumps(sample), status_code=200)
 
