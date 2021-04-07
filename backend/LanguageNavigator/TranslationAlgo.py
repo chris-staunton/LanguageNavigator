@@ -1,8 +1,9 @@
 import goslate
 from english_words import english_words_lower_alpha_set
 import heapq
+from google_trans_new import google_translator
 
-translator = goslate.Goslate()   
+translator = google_translator()  
 wordDict = {}
 
 def get_key(dictionary, n=0):
