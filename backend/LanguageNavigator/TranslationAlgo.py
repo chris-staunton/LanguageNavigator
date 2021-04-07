@@ -37,7 +37,7 @@ def levenshteinDistance(seq1, seq2):
 
 if __name__ == '__main__':
     for i in english_words_lower_alpha_set:
-        trans = translator.translate(i, 'es')
+        trans = translator.translate(i, 'fr')
         if isinstance(trans, list):
             wordDict[i] = trans[0]
         else:
@@ -53,10 +53,11 @@ if __name__ == '__main__':
         if x == 0:
             continue
         elif len(heap) <= 200:
-            heapq.heappush(heap, (key, trans))
+            heapq.heappush(heap, (x, key, trans))
         else:
             del heap[len(heap)-1]
-            heapq.heappush(heap, (key,trans))
+            heapq.heappush(heap, (x, key, trans))
+        heapq.heapify(heap)
     print(heap)
 
 
