@@ -78,11 +78,11 @@ if __name__ == '__main__':
         if x == 0:
             continue
         elif len(heap) <= 200:
-            heapq.heappush(heap, (-x, key, trans))
+            heapq.heappush(heap, (x, key, trans))
         else:
-            # del heap[len(heap)-1]
-            heapq.heappush(heap, (-x, key,trans))
-            heapq.heappop(heap)
+            del heap[len(heap)-1]
+            heapq.heappush(heap, (x, key, trans))
+        heapq.heapify(heap)
     print(heap)
 
     orderedHeap = heapq.nlargest(len(heap),heap)
