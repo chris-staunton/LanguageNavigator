@@ -1,7 +1,7 @@
-import goslate
-from english_words import english_words_lower_alpha_set
+# import goslate
+# from english_words import english_words_lower_alpha_set
 import heapq
-from google_trans_new import google_translator
+# from google_trans_new import google_translator
 import time
 import json
 from azure.cosmos import exceptions, CosmosClient, PartitionKey
@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 import os
 
-translator = google_translator()
+# translator = google_translator()
 wordDict = {}
 
 def get_key(dictionary, n=0):
@@ -46,46 +46,48 @@ def levenshteinDistance(seq1, seq2):
 
 
 if __name__ == '__main__':
-
-    myWords = []
-    # with open('LanguageLists\words.txt', 'r') as f:
-    #     myWords = f.readlines()
-    # f = open("LanguageLists/words.txt",'r')
-    with open('LanguageLists/words.txt', 'r') as f:
-        myWords = [line.strip() for line in f]
-
-    # for i in f:
-    #     print(i)
-
-    # print(myWords)
-    source = "eng"
-    target = "es"
-    for i in myWords:
-        trans = translator.translate(i, lang_tgt=target)
-        if isinstance(trans, list):
-            wordDict[i] = trans[0]
-        else:
-            wordDict[i] = trans
-        print(i + " --> " + wordDict[i])
-        time.sleep(0.3)
-        if len(wordDict) >= 1000:
-            break
+    
+    # for i in myWords:
+    #     trans = translator.translate(i, lang_tgt=target)
+    #     if isinstance(trans, list):
+    #         wordDict[i] = trans[0]
+    #     else:
+    #         wordDict[i] = trans
+    #     print(i + " --> " + wordDict[i])
+    #     time.sleep(0.3)
+    #     if len(wordDict) >= 100:
+    #         break
+    # wordDict
+    # 
+    source = "english"
+    target = "spanish"
     heap = []
-    for i in range(len(wordDict)):
-        key = get_key(wordDict, i)
-        trans = wordDict[key].lower()
-        x = levenshteinDistance(key, trans)
-        if x == 0:
-            continue
-        elif len(heap) <= 200:
-            heapq.heappush(heap, (x, key, trans))
+    englishWords = []
+    spanishWords = []
+    with open('englishWords.txt', 'r') as f:
+        englishWords = [line.strip() for line in f]
+
+    with open('spanishWords.txt', 'r') as f:
+        spanishWords = [line.strip() for line in f]
+    
+
+    print(englishWords)
+    print(spanishWords)
+    for i in range(len(englishWords)):
+        eng = englishWords[i]
+        trans = spanishWords[i]
+        x = levenshteinDistance(eng, trans)
+        if len(heap) <= 200:
+            heapq.heappush(heap, (-x, eng, trans))
         else:
-            del heap[len(heap)-1]
-            heapq.heappush(heap, (x, key, trans))
-        heapq.heapify(heap)
+            # del heap[len(heap)-1]
+            heapq.heappush(heap, (-x, eng, trans))
+            heapq.heappop(heap)
+        # heapq.heapify(heap)
     print(heap)
 
     orderedHeap = heapq.nlargest(len(heap),heap)
+    print("==========================")
     print(orderedHeap)
 
   
@@ -93,7 +95,13 @@ if __name__ == '__main__':
     
     for item in orderedHeap:
         print(item[1])
-        wordList.append(item[1])
+        #check if distance is <0, then add both words
+        if item[0] <0:
+            wordList.append(item[1]+' --> '+item[2])
+        #else show word with exact same spelling
+        else:
+            wordList.append(item[1])
+        
        
 
     result = {"source": source, "target": target, "list": wordList}
