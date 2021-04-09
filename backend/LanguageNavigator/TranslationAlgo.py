@@ -104,43 +104,43 @@ if __name__ == '__main__':
         
        
 
-    result = {"source": source, "target": target, "list": wordList}
+    result = {"source": source, "target": target,"type": "actual", "list": wordList}
     print(result)
 
 
     
     # uncomment to upload data to database
-    # # token = os.environ.get("api-token")
+    # token = os.environ.get("api-token")
 
-    # # Initialize the Cosmos client
-    # endpoint = os.environ.get("endpoint")
-    # key = os.environ.get("key")
-
-
-
-    # # <create_cosmos_client>
-    # client = CosmosClient(endpoint, key)
-    # # </create_cosmos_client>
-
-    # database = client.get_database_client("LanguagePal")
-
-    # container = database.get_container_client("items")
+    # Initialize the Cosmos client
+    endpoint = os.environ.get("endpoint")
+    key = os.environ.get("key")
 
 
-    # if client:
-    #     print("success")
 
-    # # query = 'SELECT * FROM items c WHERE c.source = "english" AND c.target = "spanish"'
+    # <create_cosmos_client>
+    client = CosmosClient(endpoint, key)
+    # </create_cosmos_client>
 
-    # # items = list(container.query_items(
-    # #     query=query,
-    # #     enable_cross_partition_query=True
-    # # ))
+    database = client.get_database_client("LanguagePal")
 
-    # # print(json.dumps(items, indent=True))
-    # # print(items[0]["list"])
+    container = database.get_container_client("items")
 
-    # container.upsert_item(result)
+
+    if client:
+        print("success")
+
+    # query = 'SELECT * FROM items c WHERE c.source = "english" AND c.target = "spanish"'
+
+    # items = list(container.query_items(
+    #     query=query,
+    #     enable_cross_partition_query=True
+    # ))
+
+    # print(json.dumps(items, indent=True))
+    # print(items[0]["list"])
+
+    container.upsert_item(result)
 
 
 

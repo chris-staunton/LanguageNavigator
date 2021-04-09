@@ -25,8 +25,13 @@ container = database.get_container_client("items")
 if client:
     print("success")
 
+source = "english"
+target = "french"
+mode="actual"
 query = 'SELECT * FROM items c WHERE c.source = "english" AND c.target = "spanish"'
 query = 'SELECT * FROM c'
+query = 'SELECT * FROM items c WHERE c.source = "' + source +'" AND c.target = "'+target+'" AND c.type = "'+mode+'"'
+
 
 items = list(container.query_items(
     query=query,
