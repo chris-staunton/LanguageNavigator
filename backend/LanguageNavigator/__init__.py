@@ -1,17 +1,42 @@
 import logging
 import json
 import nltk
-# import google_trans_new
-# from google_trans_new import google_translator
-from nltk.corpus import words
-nltk.download('words')
-            
+#comment out to deploy on azure
+from dotenv import load_dotenv
+load_dotenv()
+import os
+#
+from azure.cosmos import exceptions, CosmosClient, PartitionKey           
 
 import azure.functions as func
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
+    
+    #enter manually for deploying to azure
+    endpoint = os.environ.get("endpoint")
+    key = os.environ.get("key")
+
+
+    # <create_cosmos_client>
+    client = CosmosClient(endpoint, key)
+    # </create_cosmos_client>
+
+    database = client.get_database_client("LanguagePal")
+
+    container = database.get_container_client("items")
+
+
+    if client:
+        print("success")
+
+    
+
+    # print(json.dumps(items, indent=True))
+    # print(items[0]["list"])
+
+    
 
     mode = req.params.get('mode')
     if not mode:
@@ -90,8 +115,19 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     #     print(lang_dict)
     #     return func.HttpResponse(json.dumps(lang_dict), status_code=200)
+    if mode == "actual":
+        print("actual")
+        query = 'SELECT * FROM items c WHERE (c.source = "' + source +'" AND c.target = "'+target+'" AND c.type = "'+mode+'") OR (c.source = "' + target +'" AND c.target = "'+source+'" AND c.type = "'+mode+'")'
+        items = list(container.query_items(
+            query=query,
+            enable_cross_partition_query=True
+        ))
+        sample = items[0]
+        # print(sample)
+        
 
-    if mode == 'sample':
+        return func.HttpResponse(json.dumps(sample), status_code=200)
+    elif mode == 'sample':
         print("returning sample words")
         print(source)
 

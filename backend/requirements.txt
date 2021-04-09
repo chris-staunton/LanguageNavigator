@@ -5,3 +5,4 @@
 azure-functions
 nltk
 google_trans_new
+azure.cosmos
