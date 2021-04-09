@@ -1,6 +1,6 @@
 //Author: Theo
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import DropdownMenu from '../Components/DropdownMenu';
 
 export default function HomeScreen() {
@@ -11,7 +11,8 @@ export default function HomeScreen() {
       <View style={styles.container}>
         <View style={styles.buttonContainer}/>
         <DropdownMenu changeSource = {(lang1)=>{setSource(lang1); console.log(lang1)}} changeTarget = {(lang2)=>{setTarget(lang2); console.log(lang2)}} func={() => {
-                return fetch('https://lexicalanalyzer.azurewebsites.net/api/languagenavigator?mode=sample&source='+source+'&target='+target)
+          if (source != target){
+                return fetch('https://lexicalanalyzer.azurewebsites.net/api/languagenavigator?mode=actual&source='+source+'&target='+target)
                   .then((response) => response.json())
                   .then((json) => {
 
@@ -20,7 +21,20 @@ export default function HomeScreen() {
                   })
                   .catch((error) => {
                     console.error(error);
-                  });
+                  });}
+                  else{
+                    // console.log("cant have the same lang"),
+                    return Alert.alert("Input Error",
+                    "Please select two different languages",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                      },
+                      { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ]);
+                  }
               }}></DropdownMenu>
           <View style={styles.scrollContainer}>
             <ScrollView>
