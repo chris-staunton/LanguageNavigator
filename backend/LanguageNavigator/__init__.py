@@ -1,6 +1,6 @@
 import logging
 import json
-import nltk
+# import nltk
 #comment out to deploy on azure
 from dotenv import load_dotenv
 load_dotenv()
@@ -17,6 +17,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     #enter manually for deploying to azure
     endpoint = os.environ.get("endpoint")
     key = os.environ.get("key")
+
 
 
     # <create_cosmos_client>
@@ -65,56 +66,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         else:
             target = req_body.get('target')
 
-    # age = req.params.get('age')
-    # if not age:
-    #     try:
-    #         req_body = req.get_json()
-    #     except ValueError:
-    #         pass
-    #     else:
-    #         age = req_body.get('age')
-
-    # test = req.params.get('test')
-    # if not test:
-    #     try:
-    #         req_body = req.get_json()
-    #     except ValueError:
-    #         pass
-    #     else:
-    #         test = req_body.get('test')
-    # if mode == 'translate':
-    #     print("translating")
-    #     word = req.params.get('word')
-    #     if not word:
-    #         try:
-    #             req_body = req.get_json()
-    #         except ValueError:
-    #             pass
-    #         else:
-    #             word = req_body.get('word')
-
-    #     translator = google_trans_new.google_translator()
-    #     trans = translator.translate(word, lang_tgt="es")
-    #     if word:
-    #         return func.HttpResponse(json.dumps({word:trans}), status_code=200)
-    #     else:
-    #         print("Missing word to translate. Please include word value in request body...")
-    #         return func.HttpResponse("Error Translating....", status_code=403)
-
-    # if mode == 'testing':
-    #     print("testing")
-    #     translator = google_trans_new.google_translator()
-    #     lang_dict = {}
-    #     wordList = words.words()
-    #     for i in range(500,700):
-    #         #print(wordList[i])
-    #         trans = translator.translate(wordList[i], lang_tgt="es")
-    #         #print(trans)
-    #         lang_dict[wordList[i]]= trans
-
-
-    #     print(lang_dict)
-    #     return func.HttpResponse(json.dumps(lang_dict), status_code=200)
     if mode == "actual":
         print("actual")
         query = 'SELECT * FROM items c WHERE (c.source = "' + source +'" AND c.target = "'+target+'" AND c.type = "'+mode+'") OR (c.source = "' + target +'" AND c.target = "'+source+'" AND c.type = "'+mode+'")'
@@ -162,20 +113,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     
 
-    # if name and age:
-    #     return func.HttpResponse(f"Hello, {name}. You are {age} years old!!! This HTTP triggered function executed successfully.")
     else:
         print("no mode selected...")
         
-        # word_list = words.words()
-        # prints 236736
-        # print(len(word_list))
-        #print(word_list)
-        return func.HttpResponse(
-             json.dumps({
-            'lat': 16,
-            'lon': 111
- 
-            }) 
+        return func.HttpResponse("No Mode Selected"
             ,status_code=200
         )
