@@ -5,3 +5,7 @@ test
 .venv
 TranslationAlgo.py
 LanguageLists/
+.env
+db.py
+levenshtein.py
+translator.py
