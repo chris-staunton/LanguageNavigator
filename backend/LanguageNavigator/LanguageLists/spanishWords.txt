@@ -692,7 +692,7 @@ planchar
 soltero
 palo 
 plano
-20 
+veinte 
 piel 
 sonrisa 
 pliegue 
