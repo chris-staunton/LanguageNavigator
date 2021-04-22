@@ -2,9 +2,9 @@ import logging
 import json
 # import nltk
 #comment out to deploy on azure
-from dotenv import load_dotenv
-load_dotenv()
-import os
+# from dotenv import load_dotenv
+# load_dotenv()
+# import os
 #
 from azure.cosmos import exceptions, CosmosClient, PartitionKey           
 
@@ -15,8 +15,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
     
     #enter manually for deploying to azure
-    endpoint = os.environ.get("endpoint")
-    key = os.environ.get("key")
+    # endpoint = os.environ.get("endpoint")
+    # key = os.environ.get("key")
+
+
 
 
 
@@ -66,8 +68,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         else:
             target = req_body.get('target')
 
-    if mode == "actual":
-        print("actual")
+    if mode == "LevPhon":
+        print("Levenshtein & Phonetics")
         query = 'SELECT * FROM items c WHERE (c.source = "' + source +'" AND c.target = "'+target+'" AND c.type = "'+mode+'") OR (c.source = "' + target +'" AND c.target = "'+source+'" AND c.type = "'+mode+'")'
         items = list(container.query_items(
             query=query,

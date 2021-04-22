@@ -12,11 +12,11 @@ export default function HomeScreen() {
         <View style={styles.buttonContainer}/>
         <DropdownMenu changeSource = {(lang1)=>{setSource(lang1); console.log(lang1)}} changeTarget = {(lang2)=>{setTarget(lang2); console.log(lang2)}} func={() => {
           if (source != target){
-                return fetch('https://lexicalanalyzer.azurewebsites.net/api/languagenavigator?mode=actual&source='+source+'&target='+target)
+                return fetch('https://lexicalanalyzer.azurewebsites.net/api/languagenavigator?mode=LevPhon&source='+source+'&target='+target)
                   .then((response) => response.json())
                   .then((json) => {
 
-                    console.log(json)
+                    // console.log(json)
                     setWords(json.list)
                   })
                   .catch((error) => {
